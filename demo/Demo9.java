@@ -37,7 +37,7 @@ public class Demo9 {
             if(!sessions.containsKey(sid)){sid=UUID.randomUUID().toString();sessions.put(sid,new GaraMan9.Session());e.getResponseHeaders().add("Set-Cookie","GM="+sid+"; HttpOnly; SameSite=Lax; Path=/");}
             var m=new HashMap<String,String>();params(m,e.getRequestURI().getRawQuery());
             if(e.getRequestMethod().equals("POST"))params(m,new String(e.getRequestBody().readNBytes(65536),StandardCharsets.UTF_8));
-            var result=new GaraMan9(Demo9::sqlite,sessions.get(sid),m,e.getRequestMethod()).handle();
+            var result=DemoPages.handle(new GaraMan9(Demo9::sqlite,sessions.get(sid),m,e.getRequestMethod()));
             e.getResponseHeaders().set("Cache-Control","no-store");
             if(!result.redirect().isEmpty()){e.getResponseHeaders().set("Location","/"+result.redirect());e.sendResponseHeaders(303,-1);return;}
             byte[] body=result.content().getBytes(StandardCharsets.UTF_8);e.getResponseHeaders().set("Content-Type","text/html; charset=utf-8");e.sendResponseHeaders(result.status(),body.length);e.getResponseBody().write(body);

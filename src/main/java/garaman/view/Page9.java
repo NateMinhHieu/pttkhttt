@@ -6,7 +6,7 @@ import java.util.Locale;
 public class Page9 {
     public static String h(String s){return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#39;");}
     public static String url(String s){return URLEncoder.encode(s,StandardCharsets.UTF_8);}
-    public static String money(long n){return NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN")).format(n)+" ₫";}
+    public static String money(Number n){return NumberFormat.getIntegerInstance(Locale.forLanguageTag("vi-VN")).format(n)+" ₫";}
     public static String link(String route,String label){return "<a href='?"+h(route)+"'>"+h(label)+"</a>";}
     public static String field(String label,String name,String value,String type){return "<label>"+h(label)+"<input required name='"+name+"' type='"+type+"' value='"+h(value)+"'></label>";}
     public static String btn(String label){return "<button>"+h(label)+"</button>";}
